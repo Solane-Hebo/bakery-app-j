@@ -23,7 +23,7 @@ export function Navbar() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6 ">
         
         <Link href="/" className="flex items-center gap-2" >
-         <span className="text-lg font-semibold tracking-wide text-white">Bakery</span>
+          <img  className="h-25" src="/bakery logo.png" alt="bakerylogo" />
         </Link>
 
         {/* Desktop nav */}
@@ -58,7 +58,7 @@ export function Navbar() {
          aria-expanded={open}
          onClick={() => setOpen((v) => !v)}
         >
-            <span className="text-xl">{open ? '✕' : '☰'}</span>
+            <span className="text-5xl">{open ? '✕' : '☰'}</span>
         </button>
       </div>
         {/* Mobile menu */}

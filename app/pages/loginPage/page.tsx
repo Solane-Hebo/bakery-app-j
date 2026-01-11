@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function LoginPage() {
   return (
@@ -11,7 +12,7 @@ export default function LoginPage() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:gap-10">
-          <div className="relative overflow-hidden rounded-2xl bg-[#978282] shadow-sm min-h-[320px">
+          <div className="relative overflow-hidden rounded-2xl bg-[#978282] shadow-sm min-h-[320px]">
           <div className="absolute inset-0 bg-[url('/cake-login.jpg')] bg-cover bg-center opacity-70 object-cover"
                aria-hidden
           />
@@ -66,15 +67,13 @@ export default function LoginPage() {
 
             <p className="text-center text-sm text-gray-600">
               Don&apos;t have an account?{' '}
-              <a href="/register" className="font-semibold text-[#553030] hover:underline">
-                Create account
-              </a>
+              <Link href="/register" className="font-semibold text-[#553030] hover:underline">
+                  Create account
+               </Link>
+
             </p>
           </form>
-
         </div>
-
-
         </div>
 
     </main>
