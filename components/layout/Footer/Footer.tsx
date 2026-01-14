@@ -14,7 +14,7 @@ export default function Footer() {
           <img src="/bakery logo.png" alt="Bakerylogo" className="h-35 mb-1 block" />
           <h3 className="font-semibold text-lg mt-0 mb-1 mx-4">Contact us</h3>
           <p className="mx-4">Email: info@bakeryj.com</p>
-          <p className="mx-4">Telefon: 070-123 45 67</p>
+          <p className="mx-4">Tele: 070-123 45 67</p>
         </div>
 
         <div className="text-center space-y-4 md:mt-8">
