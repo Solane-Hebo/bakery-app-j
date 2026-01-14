@@ -58,7 +58,7 @@ export function Navbar() {
          aria-expanded={open}
          onClick={() => setOpen((v) => !v)}
         >
-            <span className="text-5xl">{open ? '✕' : '☰'}</span>
+            <span className="text-3xl">{open ? '✕' : '☰'}</span>
         </button>
       </div>
         {/* Mobile menu */}
