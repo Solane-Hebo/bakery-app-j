@@ -10,7 +10,6 @@ export default function Newsletter() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Reset status
     setStatus("idle");
     setMessage("");
 
@@ -45,38 +44,44 @@ export default function Newsletter() {
   return (
     <div className="max-w-3xl mx-auto px-6 text-center">
       <p className="text-sm text-white mb-6">
-       Sign me up to receive emails on new product arrivals special offers.
-       
+        Sign me up to receive emails on new product arrivals and special offers.
       </p>
 
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col sm:flex-row gap-3 justify-center  text-gray-600 "
+        className="flex flex-col items-center gap-2"
       >
-        <input
-          type="email"
-          placeholder="E-mail"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="px-4 py-2 rounded-lg bg-[#F9F9F9] border w-full sm:w-72 text-gray-600 relative"
-        />
+        {/* Input + Button wrapper */}
+        <div className="w-full sm:w-72 relative">
+          <input
+            type="email"
+            placeholder="E-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-4 py-2 rounded-lg bg-[#F9F9F9] border text-gray-600"
+          />
 
-        <button
-          type="submit"
-          className="bg-[#553030] text-white px-4 py-2 rounded-md absolute right-7 md:right-40"
-        >
-          Subscribe
-        </button>
+          <button
+            type="submit"
+            className="absolute right-1 top-1/2 -translate-y-1/2 bg-[#553030] text-white px-4 py-1.5 rounded-md text-sm"
+          >
+            Subscribe
+          </button>
+        </div>
+
+        {/* Messages (same width as input) */}
+        {status === "success" && (
+          <p className="w-full sm:w-72 mt-2 text-sm text-white bg-green-600 border border-white rounded-md py-1">
+            {message}
+          </p>
+        )}
+
+        {status === "error" && (
+          <p className="w-full sm:w-72 mt-2 text-sm text-white bg-red-600 border border-white rounded-md py-1">
+            {message}
+          </p>
+        )}
       </form>
-
-      {/* Messages */}
-      {status === "success" && (
-        <p className="mt-4 text-green-600 text-sm">{message}</p>
-      )}
-
-      {status === "error" && (
-        <p className="mt-4 text-red-600 text-sm">{message}</p>
-      )}
     </div>
   );
 }

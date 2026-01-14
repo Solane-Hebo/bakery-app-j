@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { connectDB } from "../lib/db";
+import { connectDB } from "@/lib/db";
 import NewsletterSubscriber from "../../models/NewsletterSubscriber";
 
 
@@ -10,7 +10,7 @@ export async function POST(req: Request) {
 
     if (!email) {
       return NextResponse.json(
-        { message: "E-post krävs" },
+        { message: "Email is required" },
         { status: 400 }
       );
     }
@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     const exists = await NewsletterSubscriber.findOne({ email });
     if (exists) {
       return NextResponse.json(
-        { message: "E-post redan prenumererad" },
+        { message: "Email is already subscribed" },
         { status: 409 }
       );
     }
@@ -26,12 +26,12 @@ export async function POST(req: Request) {
     await NewsletterSubscriber.create({ email });
 
     return NextResponse.json(
-      { message: "Prenumeration lyckades" },
+      { message: "Subscription successful" },
       { status: 201 }
     );
   } catch (error) {
     return NextResponse.json(
-      { message: "Något gick fel" },
+      { message: "Something went wrong" },
       { status: 500 }
     );
   }
