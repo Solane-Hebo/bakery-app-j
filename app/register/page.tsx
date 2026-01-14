@@ -44,7 +44,7 @@ export default function RegisterPage() {
       reset(); // clears the form
 
       // Redirect to login after 2 seconds
-      setTimeout(() => router.push("/pages/loginPage"), 2000);
+      setTimeout(() => router.push("/login"), 2000);
     } catch (error: any) {
       setStatus("error");
       setServerMessage(error?.message || "Network error. Try again.");
@@ -180,7 +180,7 @@ export default function RegisterPage() {
             <p className="text-center text-sm text-gray-600">
               Already have an account?{" "}
               <Link
-                href="/pages/loginPage"
+                href="/login"
                 className="font-semibold text-[#553030] hover:underline"
               >
                 Login

@@ -41,9 +41,9 @@ export function Navbar() {
             ))}
 
             <Link
-             href="/pages/loginPage"
+             href="/login"
              className={`rounded-md px-3 py-2 text-sm font-semibold text-white hover:bg-white/10 ${
-             pathname === '/pages/loginPage' ? 'bg-white/10' : ''
+             pathname === '/login' ? 'bg-white/10' : ''
             } `}
             >
                 Login
@@ -78,9 +78,9 @@ export function Navbar() {
                             </Link>
                         ))}
                         <Link 
-                         href="/pages/loginPage"
+                         href="/login"
                          className={`rounded-md px-3 py-2 text-sm font-semibold text-white hover:bg-white/10 ${
-                         pathname === '/pages/loginPage' ? 'bg-white/10' : ''
+                         pathname === '/login' ? 'bg-white/10' : ''
                          } `}
                         >
                             Login

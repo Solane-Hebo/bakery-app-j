@@ -1,10 +1,10 @@
 import { connectDB } from "@/lib/db"
-import { loginSchema } from "@/lib/validators"
-import { User } from "@/models/User"
 import { NextResponse } from "next/server"
 import bcrypt from 'bcryptjs'
-import z from "zod"
+import { z }from "zod"
 import { AUTH_COOKIE_NAME, authCookieOptions, signToken } from "@/lib/auth"
+import { loginSchema } from "@/lib/validators/login"
+import User from "@/app/models/User"
 
 export const runtime = 'nodejs'
 
@@ -34,7 +34,7 @@ export async function POST(req: Request) {
                 status: 401
             })
 
-            const ok = await bcrypt.compare(password, user.paswordHash)
+            const ok = await bcrypt.compare(password, user.password)
             if(!ok) return NextResponse.json({
                 status: 'error',
                 message: 'Invalid email or password'
