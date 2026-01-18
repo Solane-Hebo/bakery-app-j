@@ -47,7 +47,7 @@ export default function LoginPage() {
       reset()
       // setTimeout(() => router.push("/dashboard"), 800)
 
-      setTimeout(() => router.push("/dashboard"), 800);
+      setTimeout(() => router.push("/admin"), 800);
     } catch (error: any) {
       setStatus("error")
       setServerMessage(error?.message || "Network error. Try again.")
