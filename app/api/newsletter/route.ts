@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
-import NewsletterSubscriber from "../../models/NewsletterSubscriber";
+import NewsletterSubscriber from "../../../models/NewsletterSubscriber";
 
 
 export async function POST(req: Request) {
