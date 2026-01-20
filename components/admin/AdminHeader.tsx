@@ -16,7 +16,7 @@ export default function AdminHeader({
   onMenuClick,
 }: AdminHeaderProps) {
   const pathname = usePathname();
-  const [pageTitle, setPageTitle] = useState("Dashboard");
+  const [pageTitle, setPageTitle] = useState("Admin");
 
   const routeTitles: Record<string, string> = {
     "/admin": "Dashboard",
@@ -30,7 +30,7 @@ export default function AdminHeader({
   };
 
   useEffect(() => {
-    setPageTitle(routeTitles[pathname] || "Dashboard");
+    setPageTitle(routeTitles[pathname] || "Admin");
   }, [pathname]);
 
   return (
@@ -46,8 +46,9 @@ export default function AdminHeader({
         </button>
 
         <div>
+          <h1 className="text-2xl font-bold">{pageTitle}</h1> 
           <p className="text-sm opacity-80">Welcome, {username}</p>
-          <h1 className="text-2xl font-bold">{pageTitle}</h1>
+         
         </div>
       </div>
 
