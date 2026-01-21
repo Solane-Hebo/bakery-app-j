@@ -143,6 +143,25 @@ export function ProductsClient() {
                   return (
                     <tr key={p._id} className="hover:bg-gray-50">
                       <td className="px-5 py-4">
+                        {/* Product image thumbnail */}
+                        <div className="h-10 w-10 overflow-hidden rounded-lg border bg-gray-50">
+                           {p.imageUrl ? (
+                             <img
+                              src={p.imageUrl}
+                              alt={p.name}
+                              className="h-full w-full object-cover"
+                              onError={(e) => {
+                       // If URL is broken -> hide image so fallback shows
+                             (e.currentTarget as HTMLImageElement).style.display = "none";
+                              }}
+                            />
+                            ) : (
+                            <div className="flex h-full w-full items-center justify-center text-xs text-gray-400">
+                             No image
+                            </div>
+                         )} 
+                     
+                        </div>
                         <div className="font-semibold text-[#0F172A]">{p.name}</div>
                         <div className="text-xs text-gray-500 line-clamp-1">{p.description || "—"}</div>
                       </td>
