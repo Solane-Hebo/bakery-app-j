@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
-import RawMaterial from "@/app/models/RawMaterial";
 import mongoose from "mongoose";
+import RawMaterial from "@/models/RawMaterial";
 
 export const runtime = "nodejs";
 
