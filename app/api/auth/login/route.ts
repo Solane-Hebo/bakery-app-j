@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs'
 import { z }from "zod"
 import { AUTH_COOKIE_NAME, authCookieOptions, signToken } from "@/lib/auth"
 import { loginSchema } from "@/lib/validators/login"
-import User from "@/app/models/User"
+import User from "@/models/User"
 
 export const runtime = 'nodejs'
 
