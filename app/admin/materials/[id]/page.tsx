@@ -89,7 +89,7 @@ export default function EditMaterialPage() {
   if (loading) return <p className="p-6">Loading...</p>;
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className="min-h-[50] flex items-center justify-center px-4">
       <form
         onSubmit={handleSubmit}
         className="p-6 max-w-xl w-full rounded-xl shadow-xl space-y-4 text-[#553030]"
