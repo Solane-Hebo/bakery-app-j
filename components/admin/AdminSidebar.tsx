@@ -79,7 +79,7 @@ export default function AdminSidebar({ open, onClose}: AdminSidebarProps) {
         />
 
        <SidebarLink
-            href="/admin/production-history"
+            href="/admin/history"
             icon={<Factory size={18} />}
             label="History"
         />

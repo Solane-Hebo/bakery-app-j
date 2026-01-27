@@ -5,12 +5,18 @@ import { createSaleSchema, listSalesQuerySchema } from "@/lib/validators/sales";
 import { Product } from "@/models/Product";
 import { Sale } from "@/models/Sale";
 import { StockMovement } from "@/models/StockMovement";
+import { requireAuth } from "@/lib/requireAuth";
 
 export const runtime = "nodejs";
+
 
 export async function GET(req: Request) {
   try {
     await connectDB()
+    const auth = await requireAuth();
+    if (!auth.ok) {
+    return NextResponse.json({ status: "error", message: auth.message }, { status: auth.status });
+    }
 
     const url = new URL(req.url)
     const parsed = listSalesQuerySchema.safeParse({
