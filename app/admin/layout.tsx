@@ -20,7 +20,6 @@ export default function AdminLayout({
 
       <div className="flex flex-col flex-1">
         <AdminHeader
-          username="Admin"
           onMenuClick={() => setSidebarOpen(true)}
         />
 

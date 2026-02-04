@@ -98,8 +98,13 @@ export default function AdminSidebar({ open, onClose}: AdminSidebarProps) {
         </nav>
 
     
-      <button className="flex items-center justify-center gap-2 text-sm opacity-80 hover:opacity-100 hover:underline transition   mt-10 ">
-        <LogOut size={18} />
+      <button 
+          onClick={async () => {
+          await fetch("/api/auth/logout", { method: "POST" });
+          window.location.href = "/login"; // redirect to login
+         }}
+         className="flex items-center justify-center gap-2 text-sm opacity-80 hover:opacity-100 hover:underline transition   mt-10 ">
+         <LogOut size={18} />
         Log out
       </button>
     </aside>
