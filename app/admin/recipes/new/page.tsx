@@ -96,8 +96,9 @@ export default function NewRecipePage() {
          </div>
 
           {/* Product */}
+          <h2 className="font-semibold text-lg mb-1">Products</h2>
           <select
-            className="w-full border p-2 rounded-md"
+            className="w-full border p-2  rounded-md"
             value={form.product}
             onChange={e => setForm({ ...form, product: e.target.value })}
           >
