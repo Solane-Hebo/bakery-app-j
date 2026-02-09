@@ -13,6 +13,7 @@ export async function POST(req: Request) {
         const body = await req.json()
         const parsed = loginSchema.safeParse(body)
 
+        
         if (!parsed.success) {
             return NextResponse.json(
                 { 
@@ -23,36 +24,44 @@ export async function POST(req: Request) {
                 { status: 400},
             )
         }
-
+        
         const { email, password } = parsed.data
         await connectDB()
-
+        
         const user = await User.findOne({ email})
         if(!user) return NextResponse.json({ 
             status: 'error', 
             message: 'Invalid email or password'}, {
                 status: 401
             })
-
-            const ok = await bcrypt.compare(password, user.password)
-            if(!ok) return NextResponse.json({
+        if (!user.isActive) {
+            return NextResponse.json({ 
+                status: "error", 
+                message: "Account is disabled" }, { 
+                    status: 403 
+                });
+        }
+            
+        const ok = await bcrypt.compare(password, user.password)
+        if(!ok) return NextResponse.json({
                 status: 'error',
                 message: 'Invalid email or password'
             }, { status: 401}
         )
-
-        const token = await signToken({ sub: user._id.toString(), email: user.email, name: user.name })
-
+        
+        const token = await signToken({ sub: user._id.toString(), email: user.email, name: user.name, role: user.role})
+        
         const res = NextResponse.json({ status: 'ok', message: 'Logged in'}, { status: 200})
         res.cookies.set(AUTH_COOKIE_NAME, token, authCookieOptions())
         return res
-     }  catch (error) {
+    }  catch (error) {
         return NextResponse.json(
-        {
-            status: 'error', 
-            message: 'Login failed', 
-            error: String(error)},
-        { status: 500},
-    )
+            {
+                status: 'error', 
+                message: 'Login failed', 
+                error: String(error)},
+                { status: 500},
+            )
+        }
     }
-    }
+    

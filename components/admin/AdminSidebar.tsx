@@ -85,9 +85,9 @@ export default function AdminSidebar({ open, onClose}: AdminSidebarProps) {
         />
 
        <SidebarLink
-            href="/admin/manage-staff"
+            href="/admin/staff"
             icon={<UserRound size={18} />}
-            label="Manage staff"
+            label="staff"
         />
   
         <SidebarLink
