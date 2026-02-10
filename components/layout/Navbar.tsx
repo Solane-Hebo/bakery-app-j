@@ -5,7 +5,8 @@ import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 
 const navLinks = [
-    {href: '/', label: 'Menu'},
+    {href: '/', label: 'Home'},
+    {href: '/menu', label: 'Menu'},
     {href: '/contact', label: 'Contact'},
     {href: '/about', label: 'About us'}
 ]
@@ -32,7 +33,10 @@ export function Navbar() {
                 <Link
                  key={l.href}
                  href={l.href}
-                 className={`text-sm font-medium text-white/80 hover:text-white ${
+                 className={`relative text-sm font-bold text-white/80 hover:text-white
+                            after:absolute after:left-0 after:-bottom-1 after:h-0.5
+                            after:w-0 after:bg-white after:transition-all after:duration-300
+                            hover:after:w-full ${
                     pathname === l.href ? 'text-white' : ''
                  }`}
                  >
@@ -42,7 +46,7 @@ export function Navbar() {
 
             <Link
              href="/login"
-             className={`rounded-md px-3 py-2 text-sm font-semibold text-white hover:bg-white/10 ${
+             className={`rounded-md px-3 py-2 text-sm font-bold text-white hover:bg-white/10 ${
              pathname === '/login' ? 'bg-white/10' : ''
             } `}
             >
@@ -68,20 +72,20 @@ export function Navbar() {
                     <div className="flex flex-col gap-2">
                         {navLinks.map((l) => (
                             <Link
-                             key={l.href}
-                             href={l.href}
-                            className={`rounded-md px-3 py-2 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white ${
-                             pathname === l.href ? 'bg-white/10' : ''
-                            }`}
+                                key={l.href}
+                                href={l.href}
+                                className={`rounded-md px-3 py-2 text-sm font-semibold text-white/80 hover:bg-white/10 hover:text-white ${
+                                pathname === l.href ? 'bg-white/10' : ''
+                                }`}
                             >
                                 {l.label}
                             </Link>
                         ))}
                         <Link 
-                         href="/login"
-                         className={`rounded-md px-3 py-2 text-sm font-semibold text-white hover:bg-white/10 ${
-                         pathname === '/login' ? 'bg-white/10' : ''
-                         } `}
+                            href="/login"
+                            className={`rounded-md px-3 py-2 text-sm font-semibold text-white hover:bg-white/10 ${
+                            pathname === '/login' ? 'bg-white/10' : ''
+                            } `}
                         >
                             Login
                         </Link>
