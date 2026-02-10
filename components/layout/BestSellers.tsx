@@ -1,8 +1,8 @@
 // src/app/(public)/components/BestSellers.tsx
 const items = [
     { name: "Chocolate Cake", price: "$12", image: "/chocolatecakes.jpg" },
-    { name: "Croissant", price: "$4", image: "/bread.jpg" },
-    { name: "Cupcakes", price: "$8", image: "/cupcakes.png" },
+    { name: "Bread", price: "$4", image: "/bread.jpg" },
+    { name: "Cupcakes", price: "$8", image: "/cupcakes 2.jpg" },
     { name: "Cheesecake", price: "$8", image: "/cheesecake.jpg" },
   ];
   
