@@ -45,9 +45,11 @@ export default function LoginPage() {
       setStatus("success")
       setServerMessage(result.message || "Logged in successfully!")
       reset()
-      // setTimeout(() => router.push("/dashboard"), 800)
 
-      setTimeout(() => router.push("/admin"), 800);
+    const role = result.role as "admin" | "staff" | "viewer" | undefined
+    const next = role === "admin" || role === "staff"? "/admin": "/"
+    setTimeout(() => router.push(next), 800);
+
     } catch (error: any) {
       setStatus("error")
       setServerMessage(error?.message || "Network error. Try again.")

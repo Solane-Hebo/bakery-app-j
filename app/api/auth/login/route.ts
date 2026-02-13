@@ -51,7 +51,8 @@ export async function POST(req: Request) {
         
         const token = await signToken({ sub: user._id.toString(), email: user.email, name: user.name, role: user.role})
         
-        const res = NextResponse.json({ status: 'ok', message: 'Logged in'}, { status: 200})
+        const res = NextResponse.json({ status: 'ok', message: 'Logged in', role: user.role }, 
+        { status: 200})
         res.cookies.set(AUTH_COOKIE_NAME, token, authCookieOptions())
         return res
     }  catch (error) {
