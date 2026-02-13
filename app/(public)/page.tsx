@@ -1,7 +1,19 @@
-export default function Home() {
+'use client'
+
+import { BestSellers } from "@/components/layout/BestSellers"
+import { Hero } from "@/components/layout/Hero"
+import { Testimonials } from "@/components/layout/Testimonials"
+
+const HomePage = () => {
   return (
-    <main className="min-h-screen flex items-center justify-center">
-      <h1 className="text-3xl font-bold">Bakery App</h1>
-    </main>
-  );
+    <>
+     <div className="bg-white">
+      <Hero/>
+      <BestSellers/>
+      <Testimonials/>
+     </div>
+    </>
+  )
 }
+
+export default HomePage
