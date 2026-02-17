@@ -1,6 +1,6 @@
 'use client'
 
-import { BestSellers } from "@/components/layout/BestSellers"
+import BestSellers from "@/components/layout/BestSellers"
 import { Hero } from "@/components/layout/Hero"
 import { Testimonials } from "@/components/layout/Testimonials"
 

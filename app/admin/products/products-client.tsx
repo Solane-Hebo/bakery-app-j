@@ -23,6 +23,7 @@ type Product = {
   lowStockThreshold: number
   imageUrl?: string
   isActive?: boolean
+  isBestSeller?: boolean 
 }
 
 export function ProductsClient() {
@@ -132,6 +133,7 @@ export function ProductsClient() {
                   <th className="px-5 py-3 font-semibold">Stock</th>
                   <th className="px-5 py-3 font-semibold">Min stock</th>
                   <th className="px-5 py-3 font-semibold">Status</th>
+                  <th className="px-5 py-3 font-semibold">Best Seller</th>
                   <th className="px-5 py-3 font-semibold text-right">Actions</th>
                 </tr>
               </thead>
@@ -187,6 +189,14 @@ export function ProductsClient() {
                         >
                           {low ? "Low stock" : "In stock"}
                         </span>
+                      </td>
+
+                      <td className="px-5 py-4">
+                        {p.isBestSeller && (
+                          <span className="inline-flex items-center rounded-full bg-yellow-100 px-2 py-1 text-xs font-bold text-yellow-800">
+                            ⭐ 
+                          </span>
+                        )}
                       </td>
 
                       <td className="px-5 py-4 text-right">
@@ -293,6 +303,8 @@ function ProductModal({
           lowStockThreshold: editItem?.lowStockThreshold ?? 5,
           imageUrl: editItem?.imageUrl ?? "",
           isActive: editItem?.isActive ?? true,
+          isBestSeller: editItem?.isBestSeller ?? false,
+
         }
       : {
           name: "",
@@ -303,6 +315,9 @@ function ProductModal({
           lowStockThreshold: 5,
           imageUrl: "",
           isActive: true,
+          isBestSeller: false,
+
+
         },
   })
 
@@ -437,8 +452,13 @@ function ProductModal({
           <div className="flex items-center justify-between gap-3 pt-2">
             <label className="inline-flex items-center gap-2 text-sm text-gray-700">
               <input type="checkbox" className="h-4 w-4" {...register("isActive")} />
-              Active product
+               Active product
             </label>
+
+            <label className="inline-flex items-center gap-2 text-sm text-gray-700">
+              <input type="checkbox" className="h-4 w-4" {...register("isBestSeller")} />
+                Mark as Best Seller
+              </label>
 
             <button
               disabled={isSubmitting}
