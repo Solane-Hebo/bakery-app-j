@@ -81,6 +81,7 @@ export default function OrderModal({
                 <Image
                   src={product.imageUrl}
                   alt={product.name}
+                  fill
                   className="h-full w-full object-cover"
                   sizes="140px"
                 />

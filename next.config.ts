@@ -2,9 +2,7 @@
 const nextConfig = {
   images: {
     domains: [
-      'thecookingfoodie.com',
-      'anotherdomain.com',  
-      'www.magnoliabakery.com',  
+      "res.cloudinary.com"
     ],
   },
 }

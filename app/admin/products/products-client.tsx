@@ -291,6 +291,8 @@ function ProductModal({
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
+    setValue,
+    watch,
   } = useForm<any>({
     resolver: zodResolver(schema as any),
     defaultValues: isEdit
@@ -320,6 +322,8 @@ function ProductModal({
 
         },
   })
+  const imageUrl = watch("imageUrl");
+
 
   async function onSubmit(values: any) {
     const payload = {
@@ -441,13 +445,64 @@ function ProductModal({
           </div>
 
           <div>
-            <label className="text-sm font-semibold text-[#553030]">Image URL (optional)</label>
+            <label className="text-sm font-semibold text-[#553030]">
+              Product Image
+            </label>
+
+            {imageUrl && (
+              <div className="mt-3 mb-4 flex justify-center">
+                <div className="inline-block h-25 overflow-hidden rounded-xl border bg-gray-50 p-2">
+                  <img
+                    src={imageUrl}
+                    alt="Preview"
+                    className="h-full w-full object-contain"
+                  />
+                </div>
+              </div>
+            )}
+
             <input
-              className="mt-1 w-full rounded-xl text-[#553030] border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#553030]/30"
+              type="file"
+              accept="image/*"
+              className="mt-1 w-full rounded-xl border px-3 py-2 text-sm text-[#553030]"
+              onChange={async (e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+
+                const formData = new FormData();
+                formData.append("file", file);
+
+                try {
+                  const res = await fetch("/api/upload", {
+                    method: "POST",
+                    body: formData,
+                  });
+
+                  const data = await res.json();
+                  if (!res.ok) throw new Error(data?.message);
+
+                  setValue("imageUrl", data.url, {
+                      shouldValidate: true,
+                      shouldDirty: true,
+                  });
+                } catch {
+                  alert("Upload failed");
+                }
+              }}
+            />
+
+            <label className="mt-4 block text-sm font-semibold text-[#553030]">
+              Or Image URL
+            </label>
+
+            <input
+              
+              className="mt-1 w-full text-[#553030] rounded-xl border px-3 py-2 text-sm"
               {...register("imageUrl")}
               placeholder="https://..."
             />
           </div>
+
 
           <div className="flex items-center justify-between gap-3 pt-2">
             <label className="inline-flex items-center gap-2 text-sm text-gray-700">

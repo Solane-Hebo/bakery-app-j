@@ -26,7 +26,7 @@ export default function BestSellers() {
   useEffect(() => {
     async function fetchBestSellers() {
       try {
-        const res = await fetch("/api/products?bestSeller=true");
+        const res = await fetch("/api/products/best-seller");
         const data = await res.json();
         setProducts(data.products || []);
       } catch (error) {
@@ -59,52 +59,52 @@ export default function BestSellers() {
       <div className="grid gap-6 md:grid-cols-4">
         {products.map((product) => (
           <div
-            key={product._id}
-            className="relative rounded-xl bg-white shadow hover:shadow-lg transition"
-          >
-            {/* Bestseller Badge */}
-            {product.isBestSeller && (
-              <span className="absolute top-3 left-3 z-10 rounded-full bg-yellow-400 px-3 py-1 text-xs font-bold text-white">
-                BESTSELLER
-              </span>
+          key={product._id}
+          className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition cursor-pointer"
+        >
+          {/* Image */}
+          <div className="relative h-100 md:h-84 w-full">
+            {product.imageUrl ? (
+              <Image
+                src={product.imageUrl}
+                alt={product.name}
+                fill
+                className="object-cover"
+              />
+            ) : (
+              <div className="flex h-full items-center justify-center bg-gray-200 text-gray-500">
+                No Image
+              </div>
             )}
+          </div>
 
-            {/* Image */}
-            <div className="relative h-56 w-full overflow-hidden rounded-t-xl">
-              {product.imageUrl ? (
-                <Image
-                  src={product.imageUrl}
-                  alt={product.name}
-                  fill
-                  className="object-cover"
-                />
-              ) : (
-                <div className="flex h-full items-center justify-center text-gray-400">
-                  No Image
-                </div>
-              )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+        
+     
+          {product.isBestSeller && (
+            <span className="absolute top-3 left-3 z-10 rounded-full bg-yellow-400 px-3 py-1 text-xs font-bold text-white">
+              BESTSELLER
+            </span>
+          )}
+      
+          <div className="absolute bottom-4 left-4 right-4 text-white flex justify-between items-center">
+            <div>
+              <h3 className=" text-sm font-bold">{product.name}</h3>
+              <p className="text-sm font-semibold">{product.price.toFixed(2)} kr</p>
             </div>
-
-            {/* Content */}
-            <div className="p-4">
-              <h3 className="text-lg font-semibold text-[#0F172A]">
-                {product.name}
-              </h3>
-
-              <p className="mt-1 text-[#553030] font-bold">
-                {product.price.toFixed(2)} kr
-              </p>
-
+            <div>
               <button
                 onClick={() => handleOrder(product)}
-                className="mt-4 w-full rounded-xl bg-[#553030] px-4 py-2 text-sm font-semibold text-white hover:opacity-90"
-              >
+                className=" mt-2 w-full px-3  rounded-x text-[#553030]/90 py-1 text-sm font-semibold bg-white rounded-xl hover:bg-[#553030]/100 hover:text-white transition"
+               >
                 Order
               </button>
             </div>
           </div>
+        </div>
+        
         ))}
-      </div>
+          </div>
 
       {/* 🔥 Reused OrderModal */}
       {modalOpen && selectedProduct && (
