@@ -12,6 +12,8 @@ export const createProductSchema = z.object({
     { message: "Invalid image URL" }
     ),
     isActive: z.boolean().optional().default(true),
+    isBestSeller: z.boolean().optional(),
+
  })
 
 export const updateProductSchema = createProductSchema

@@ -10,6 +10,7 @@ const ProductSchema = new Schema(
     lowStockThreshold: { type: Number, required: true, min: 0, default: 5 },
     imageUrl: { type: String, default: '' },
     isActive: { type: Boolean, default: true },
+    isBestSeller: { type: Boolean, default: false },
   },
   { timestamps: true },
 )
