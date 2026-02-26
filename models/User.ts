@@ -7,14 +7,14 @@ const userSchema = new mongoose.Schema({
     avatar: { type: String, default: ""}, 
     role: {
         type: String,
-        enum: ["user", "admin"],
-        default: "user",
+        enum: ["viewer", "admin", "staff"],
+        default: "staff",
+        required: true
     },
+    isActive: { type: Boolean, default: true},
     passwordChangedAt: {
         type: Date,
-      }
-      
-
+      }     
 }, { timestamps: true})
   
  const User = mongoose.models.User || mongoose.model('User', userSchema);

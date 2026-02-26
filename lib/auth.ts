@@ -13,7 +13,15 @@ const key = new TextEncoder().encode(secret)
 
 export const AUTH_COOKIE_NAME = 'auth_token'
 
-export async function signToken(payload:{ sub: string; email: string; name?: string}) {
+type JwtPayload = {
+  sub: string;
+  email: string;
+  name?: string;
+  role: "admin" | "staff" | "viewer";
+  isActive?: boolean;
+};
+
+export async function signToken(payload: JwtPayload) {
  return new SignJWT(payload)
   .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
   .setIssuedAt()
@@ -45,9 +53,11 @@ export async function getAuthUser() {
   try {
     const payload = await verifyToken(token);
     await connectDB();
-    const user = await User.findById(payload.sub).select("passwordChangedAt");
+    const user = await User.findById(payload.sub).select("email name role isActive passwordChangedAt");
+
 
     if (!user) return null;
+    if (!user.isActive) return null
 
     if (
       user.passwordChangedAt &&
@@ -58,9 +68,10 @@ export async function getAuthUser() {
     }
 
     return {
-      sub: payload.sub as string,
-      email: payload.email as string,
-      name: payload.name as string | undefined,
+      sub: user._id.toString(),
+      email: user.email,
+      name: user.name,
+      role: user.role,
     };
   } catch {
     return null;
