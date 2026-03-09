@@ -104,7 +104,7 @@ export default function OrderModal({
                 <div className="shrink-0 text-right">
                   <div className="text-xs text-gray-500">Price</div>
                   <div className="text-base font-extrabold text-[#553030]">
-                    {product.price.toFixed(2)} {unit}
+                    {product.price.toFixed(2)} kr
                   </div>
                 </div>
               </div>
@@ -162,7 +162,7 @@ export default function OrderModal({
                 <div>
                   <div className="text-xs text-gray-600">Total</div>
                   <div className="text-lg font-extrabold text-[#0F172A]">
-                    {total.toFixed(2)} {unit}
+                    {total.toFixed(2)} kr
                   </div>
                 </div>
                 <div className="text-right text-xs text-gray-600">Pickup time included in message</div>

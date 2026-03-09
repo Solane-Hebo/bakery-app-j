@@ -79,10 +79,9 @@ function buildPickupOptions(now: Date): PickupOption[] {
 
 // ---------------- Message + deep links ----------------
 function buildMessage(p: Product, qty: number, pickup: string) {
-  const unit = p.unit || "kr"
   return `Hi! I'd like to order:\n- ${p.name}\n- Quantity: ${qty}\n- Price: ${p.price.toFixed(
     2,
-  )} ${unit}\n- Pickup: ${pickup}\n\nThanks!`
+  )} kr\n- Pickup: ${pickup}\n\nThanks!`
 }
 
 function whatsappLink(phoneNoPlus: string, message: string) {
@@ -278,7 +277,7 @@ function FilterPill({
 }
 
 function MenuCard({ product, onOrder }: { product: Product; onOrder: () => void }) {
-  const { name, description, price, unit, imageUrl, category } = product
+  const { name, description, price, imageUrl, category } = product
 
   return (
     <article className="group overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-black/5 transition hover:-translate-y-0.5 hover:shadow-md">
@@ -308,7 +307,7 @@ function MenuCard({ product, onOrder }: { product: Product; onOrder: () => void 
             </span>
           ) : null}
           <span className="inline-flex items-center rounded-full bg-white/90 px-3 py-1 text-xs font-extrabold text-[#553030] shadow-sm ring-1 ring-black/5">
-            {price.toFixed(2)} {unit || "kr"}
+            {price.toFixed(2)} bir
           </span>
         </div>
       </div>
@@ -408,7 +407,7 @@ function OrderModal({
               <div className="shrink-0 text-right">
                 <div className="text-xs text-gray-500">Price</div>
                 <div className="text-base font-extrabold text-[#553030]">
-                  {product.price.toFixed(2)} {unit}
+                  {product.price.toFixed(2)} bir
                 </div>
               </div>
             </div>
@@ -466,7 +465,7 @@ function OrderModal({
               <div>
                 <div className="text-xs text-gray-600">Total</div>
                 <div className="text-lg font-extrabold text-[#0F172A]">
-                  {total.toFixed(2)} {unit}
+                  {total.toFixed(2)} bir
                 </div>
               </div>
               <div className="text-right text-xs text-gray-600">Pickup time included in message</div>
