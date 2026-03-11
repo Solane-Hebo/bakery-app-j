@@ -6,11 +6,12 @@ export const runtime = "nodejs";
 
 export async function GET(
   _req: Request,
-  { params }: { params: { productId: string } }
+  { params }: { params: Promise<{ productId: string }> }
 ) {
+  const { productId } = await params
   await connectDB();
 
-  const recipe = await Recipe.findOne({ product: params.productId });
+  const recipe = await Recipe.findOne({ product: productId });
 
   if (!recipe) {
     return NextResponse.json({ message: "Not found" }, { status: 404 });
