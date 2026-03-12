@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import MenuClient from "./menu-client"
 
 type Product = {
@@ -11,11 +12,11 @@ type Product = {
 }
 
 async function getProducts(): Promise<Product[]> {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL?.trim() ||
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")
+  // const baseUrl =
+  //   process.env.NEXT_PUBLIC_BASE_URL?.trim() ||
+  //   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")
 
-  const res = await fetch(`${baseUrl}/api/products`, { cache: "no-store" })
+  const res = await fetch("/api/products", { cache: "no-store" })
   if (!res.ok) return []
 
   const data = await res.json()
