@@ -138,10 +138,11 @@ export function SalesClient() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="w-full min-w-0 max-w-full space-y-6 overflow-hidden">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-extrabold text-[#0F172A]">Sales</h1>
+    <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A]">Sales</h1>
+
         <p className="mt-1 text-sm text-gray-600">
           Register sold products and update inventory
         </p>

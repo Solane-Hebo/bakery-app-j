@@ -38,9 +38,11 @@ export default async function AdminDashboard() {
   const recent = data?.recentSales ?? []
 
   return (
-    <div className="space-y-6">
+    <div className="w-full min-w-0 max-w-full space-y-6 overflow-hidden">
       <div>
-        <h1 className="text-3xl font-extrabold text-[#0F172A]">Dashboard</h1>
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A]">
+          Dashboard
+        </h1>
         <p className="mt-1 text-sm text-gray-600">
           Overview of today’s sales and inventory status
         </p>

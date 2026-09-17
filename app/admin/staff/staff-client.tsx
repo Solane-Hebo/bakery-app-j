@@ -76,11 +76,11 @@ export function StaffClient() {
   const activeCount = useMemo(() => items.filter((u) => u.isActive).length, [items])
 
   return (
-    <div className="space-y-6">
+    <div className="w-full min-w-0 max-w-full space-y-6 overflow-hidden">
       {/* Header */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="text-3xl font-extrabold text-[#0F172A]">Staff</h1>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A]">Staff</h1>
           <p className="mt-1 text-sm text-gray-600">
             Create accounts, change roles, and enable/disable access
           </p>

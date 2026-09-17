@@ -88,11 +88,11 @@ export function ProductsClient() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="w-full min-w-0 max-w-full space-y-6 overflow-hidden">
       {/* Header */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="text-3xl font-extrabold text-[#0F172A]">Product Management</h1>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A]">Product Management</h1>
           <p className="mt-1 text-sm text-gray-600">Manage your products and inventory levels</p>
         </div>
 
@@ -355,7 +355,7 @@ function ProductModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-      <div className="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-lg">
+      <div className="relative w-full max-w-md max-h-[85vh] overflow-y-auto rounded-2xl bg-white p-5 shadow-lg">
         <div className="flex items-start justify-between">
           <div>
             <h3 className="text-xl font-extrabold text-[#0F172A]">
@@ -372,7 +372,7 @@ function ProductModal({
           </button>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-5 grid gap-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-4 grid gap-3">
           <div>
             <label className="text-sm font-semibold text-[#553030]">Product name</label>
             <input
