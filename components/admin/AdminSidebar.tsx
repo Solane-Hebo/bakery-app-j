@@ -1,114 +1,196 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
+
 import {
-   Home,
-   Wheat,
-   NotebookPen,
-   Factory,
-   ShoppingCart,
-   Settings,
-   UserRound,
-   LogOut,
-   ShoppingBag,
-   X,
+  Home,
+  Wheat,
+  NotebookPen,
+  Factory,
+  ShoppingCart,
+  Settings,
+  UserRound,
+  LogOut,
+  ShoppingBag,
+  X,
 } from "lucide-react";
 
 interface AdminSidebarProps {
-    open: boolean;
-    onClose: () => void;
-  }
+  open: boolean;
+  onClose: () => void;
+}
 
-export default function AdminSidebar({ open, onClose}: AdminSidebarProps) {
+type UserRole = "admin" | "staff" | "viewer";
+
+export default function AdminSidebar({
+  open,
+  onClose,
+}: AdminSidebarProps) {
+  const [role, setRole] = useState<UserRole | null>(null);
+
+  // Get logged-in user's role
+  useEffect(() => {
+    async function loadUser() {
+      try {
+        const res = await fetch("/api/profile/me", {
+          cache: "no-store",
+        });
+
+        if (!res.ok) {
+          setRole(null);
+          return;
+        }
+
+        const data = await res.json();
+
+        setRole(data.role);
+      } catch {
+        setRole(null);
+      }
+    }
+
+    loadUser();
+  }, []);
+
   return (
     <>
-    {open && (
+      {/* Mobile overlay */}
+      {open && (
         <div
           onClick={onClose}
-          className="fixed inset-0 bg-black/40 z-40 md:hidden"
+          className="fixed inset-0 z-40 bg-black/40 md:hidden"
         />
       )}
-    <aside 
+
+      <aside
         className={`
-          fixed md:static top-0 left-0 z-50
-          w-64 min-h-screen p-6 flex flex-col
-          bg-[#553030] text-white shadow-lg
+          fixed left-0 top-0 z-50
+          flex min-h-screen w-64 flex-col
+          bg-[#553030] p-6 text-white shadow-lg
           transform transition-transform duration-300
           ${open ? "translate-x-0" : "-translate-x-full"}
-          md:translate-x-0
+          md:static md:translate-x-0
         `}
       >
-         <button
+        {/* Close button mobile */}
+        <button
           onClick={onClose}
-          className="md:hidden self-end mb-4 opacity-80 hover:opacity-100"
+          className="mb-4 self-end opacity-80 hover:opacity-100 md:hidden"
+          aria-label="Close menu"
         >
           <X size={22} />
         </button>
-    
-      <div className="flex flex-col items-center gap-3 mb-6">
-        <img className="h-24" src="/bakery logo.png" alt="Bakery logo" />
-      </div>
 
-      <hr className="border-white/40 mb-10" />
+        {/* Logo */}
+        <div className="mb-6 flex flex-col items-center gap-3">
+          <img
+            className="h-24"
+            src="/bakery logo.png"
+            alt="Bakery logo"
+          />
+        </div>
 
-      <nav className="flex-1 flex flex-col space-y-4">
-        <SidebarLink href="/admin" icon={<Home size={18} />} label="Dashboard" />
+        <hr className="mb-10 border-white/40" />
 
-        <SidebarLink
-            href="/admin/products"
-            icon={<ShoppingBag size={18} />}
-            label="Products"
-        />
+        {/* Navigation */}
+        <nav className="flex flex-1 flex-col space-y-4">
 
-        <SidebarLink
-            href="/admin/materials"
-            icon={<Wheat size={18} />}
-            label="Raw Materials"
-        />
+          {/* ====================== */}
+          {/* ADMIN ONLY */}
+          {/* ====================== */}
 
-        <SidebarLink
-            href="/admin/recipes"
-            icon={<NotebookPen size={18} />}
-            label="Recipes"
-        />
+          {role === "admin" && (
+            <SidebarLink
+              href="/admin"
+              icon={<Home size={18} />}
+              label="Dashboard"
+              onClick={onClose}
+            />
+          )}
 
-        <SidebarLink
-            href="/admin/sales"
-            icon={<ShoppingCart size={18} />}
-            label="Sales"
-        />
+          {/* ====================== */}
+          {/* ADMIN + STAFF */}
+          {/* ====================== */}
 
-       <SidebarLink
-            href="/admin/history"
-            icon={<Factory size={18} />}
-            label="History"
-        />
+          {(role === "admin" || role === "staff") && (
+            <SidebarLink
+              href="/admin/products"
+              icon={<ShoppingBag size={18} />}
+              label="Products"
+              onClick={onClose}
+            />
+          )}
 
-       <SidebarLink
-            href="/admin/staff"
-            icon={<UserRound size={18} />}
-            label="staff"
-        />
-  
-        <SidebarLink
-            href="/admin/settings"
-            icon={<Settings size={18} />}
-            label="Settings"
-        />
+          {(role === "admin" || role === "staff") && (
+            <SidebarLink
+              href="/admin/sales"
+              icon={<ShoppingCart size={18} />}
+              label="Sales"
+              onClick={onClose}
+            />
+          )}
+
+          {/* ====================== */}
+          {/* ADMIN ONLY */}
+          {/* ====================== */}
+
+          {role === "admin" && (
+            <>
+              <SidebarLink
+                href="/admin/materials"
+                icon={<Wheat size={18} />}
+                label="Raw Materials"
+                onClick={onClose}
+              />
+
+              <SidebarLink
+                href="/admin/recipes"
+                icon={<NotebookPen size={18} />}
+                label="Recipes"
+                onClick={onClose}
+              />
+
+              <SidebarLink
+                href="/admin/history"
+                icon={<Factory size={18} />}
+                label="History"
+                onClick={onClose}
+              />
+
+              <SidebarLink
+                href="/admin/staff"
+                icon={<UserRound size={18} />}
+                label="Staff"
+                onClick={onClose}
+              />
+
+              <SidebarLink
+                href="/admin/settings"
+                icon={<Settings size={18} />}
+                label="Settings"
+                onClick={onClose}
+              />
+            </>
+          )}
         </nav>
 
-    
-      <button 
+        {/* Logout */}
+        <button
           onClick={async () => {
-          await fetch("/api/auth/logout", { method: "POST" });
-          window.location.href = "/login"; // redirect to login
-         }}
-         className="flex items-center justify-center gap-2 text-sm opacity-80 hover:opacity-100 hover:underline transition   mt-10 ">
-         <LogOut size={18} />
-        Log out
-      </button>
-    </aside>
-  </>
+            await fetch("/api/auth/logout", {
+              method: "POST",
+            });
+
+            window.location.href = "/login";
+          }}
+          className="mt-10 flex items-center justify-center gap-2 text-sm opacity-80 transition hover:opacity-100 hover:underline"
+        >
+          <LogOut size={18} />
+          Log out
+        </button>
+      </aside>
+    </>
   );
 }
 
@@ -116,15 +198,19 @@ function SidebarLink({
   href,
   icon,
   label,
+  onClick,
 }: {
   href: string;
   icon: React.ReactNode;
   label: string;
+  onClick?: () => void;
 }) {
   return (
     <Link
       href={href}
-      className="flex text-[#F5E1D8] items-center gap-3 px-4 py-2 rounded-xl hover:bg-white/15 hover:scale-105 transition-transform">
+      onClick={onClick}
+      className="flex items-center gap-3 rounded-xl px-4 py-2 text-[#F5E1D8] transition-transform hover:scale-105 hover:bg-white/15"
+    >
       {icon}
       {label}
     </Link>

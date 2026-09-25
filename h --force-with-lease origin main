@@ -1,0 +1,10 @@
+[33m03a055a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Fix responsive admin layout and product modal
+[33m553468f[m[33m ([m[1;31morigin/main[m[33m)[m Initial commit
+[33m1611328[m Fix dynamic route params for Next.js build
+[33ma84ae2f[m Fix menu price display currency
+[33m3a8172b[m Merge pull request #3 from Solane-Hebo/feature/products
+[33m354556c[m[33m ([m[1;32mfeature/products[m[33m)[m Merge branch 'main' of https://github.com/Solane-Hebo/bakery-app-j into feature/products
+[33mc11cf81[m Merge pull request #9 from Solane-Hebo/feature/home
+[33ma54245d[m[33m ([m[1;31morigin/feature/products[m[33m)[m Add about us page
+[33mdfe56af[m[33m ([m[1;31morigin/feature/home[m[33m)[m add upload fucction in products page
+[33m8d3e86c[m add the contact page and update home page

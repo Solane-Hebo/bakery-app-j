@@ -25,7 +25,7 @@ export function Navbar() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6 ">
         
         <Link href="/" className="flex items-center gap-2" >
-          <img  className="h-25" src="/bakery logo.png" alt="bakerylogo" />
+          <img  className="h-10 rounded-4xl" src="/bakery logo.png" alt="bakerylogo" />
         </Link>
 
         {/* Desktop nav */}

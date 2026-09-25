@@ -11,7 +11,7 @@ export default function Footer() {
      
       <div className="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8 text-sm  text-white">
        <div className="flex flex-col items-center md:items-start text-center md:text-start">
-          <img src="/bakery logo.png" alt="Bakerylogo" className="h-35 mb-1 block" />
+          <img src="/bakery logo.png" alt="Bakerylogo" className="h-35 mb-1 block  rounded-2xl" />
           <h3 className="font-semibold text-lg mt-0 mb-1 mx-4">Contact us</h3>
           <p className="mx-4">Email: info@bakeryj.com</p>
           <p className="mx-4">Tele: 070-123 45 67</p>

@@ -12,7 +12,11 @@ export default function AdminHeader({ onMenuClick }: AdminHeaderProps) {
   const pathname = usePathname();
   const [pageTitle, setPageTitle] = useState("Admin");
   const [open, setOpen] = useState(false);
-  const [user, setUser] = useState<{ name: string; avatar?: string } | null>(null);
+  const [user, setUser] = useState<{
+  name: string;
+  avatar?: string;
+  role?: "admin" | "staff" | "viewer";
+} | null>(null);
 
   useEffect(() => {
 
@@ -45,7 +49,14 @@ export default function AdminHeader({ onMenuClick }: AdminHeaderProps) {
         </button>
         <div>
           <h1 className="text-2xl font-bold">{pageTitle}</h1>
-          <p className="text-sm opacity-80">Welcome, {user?.name || "Admin"}</p>
+          <p className="text-sm opacity-80">
+  Welcome, {user?.name || "User"}
+  {user?.role && (
+    <span className="ml-2 capitalize">
+      ({user.role})
+    </span>
+  )}
+</p>
         </div>
       </div>
 

@@ -68,7 +68,6 @@ export default function LoginPage() {
           Login
         </h1>
       </div>
-
         <div className="grid gap-6 md:grid-cols-2">
           <div className="relative overflow-hidden rounded-2xl bg-[#978282] shadow-sm min-h-90 min-w-90 flex items-center justify-center">
           <div className="absolute inset-0 bg-[url('/cake-login.jpg')] bg-cover bg-center opacity-70 object-cover"
@@ -134,6 +133,14 @@ export default function LoginPage() {
                 <p className="text-sm text-red-600">{errors.password.message}</p>
               )}   
             </div>
+            <div className="mt-2 text-right">
+  <Link
+    href="/forgot-password"
+    className="text-sm font-semibold text-[#553030] hover:underline"
+  >
+    Forgot password?
+  </Link>
+</div>
 
             <button
               type="submit"

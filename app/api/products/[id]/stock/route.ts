@@ -3,11 +3,23 @@ import { connectDB } from '@/lib/db';
 import { Product } from '@/models/Product';
 import { StockMovement } from '@/models/StockMovement';
 import mongoose from 'mongoose';
+import { requireRole } from "@/lib/requireRole";
 import { stockAdjustSchema } from '@/lib/validators/product';
 
 export const runtime = 'nodejs';
 
 export async function POST(req: Request, ctx: { params: Promise<{ id: string }> }) {
+  const auth = await requireRole(["admin"]);
+
+  if (!auth.ok) {
+    return NextResponse.json(
+      {
+        status: "error",
+        message: auth.message,
+      },
+      { status: auth.status }
+    );
+  }
   try {
     const { id } = await ctx.params;
 

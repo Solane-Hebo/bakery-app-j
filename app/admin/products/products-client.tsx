@@ -34,6 +34,9 @@ export function ProductsClient() {
   const [modalOpen, setModalOpen] = useState(false)
   const [editItem, setEditItem] = useState<Product | null>(null)
   const [busyId, setBusyId] = useState<string | null>(null)
+  const [role, setRole] = useState<
+    "admin" | "staff" | "viewer" | null
+  >(null);
 
   async function fetchProducts() {
     setLoading(true)
@@ -51,8 +54,28 @@ export function ProductsClient() {
   }
 
   useEffect(() => {
-    fetchProducts()
-  }, [])
+  fetchProducts();
+
+  async function fetchRole() {
+    try {
+      const res = await fetch("/api/profile/me", {
+        cache: "no-store",
+      });
+
+      if (!res.ok) {
+        setRole(null);
+        return;
+      }
+
+      const data = await res.json();
+      setRole(data.role);
+    } catch {
+      setRole(null);
+    }
+  }
+
+  fetchRole();
+}, []);
 
   const stats = useMemo(() => {
     const total = items.length
@@ -134,7 +157,11 @@ export function ProductsClient() {
                   <th className="px-5 py-3 font-semibold">Min stock</th>
                   <th className="px-5 py-3 font-semibold">Status</th>
                   <th className="px-5 py-3 font-semibold">Best Seller</th>
-                  <th className="px-5 py-3 font-semibold text-right">Actions</th>
+                  {role === "admin" && (
+                 <th className="px-5 py-3 font-semibold text-right">
+                  Actions
+                 </th>
+                 )}
                 </tr>
               </thead>
 
@@ -199,26 +226,28 @@ export function ProductsClient() {
                         )}
                       </td>
 
-                      <td className="px-5 py-4 text-right">
-                        <div className="inline-flex gap-2">
-                          <button
-                            onClick={() => openEdit(p)}
-                            className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-xs font-semibold text-blue-700 hover:bg-blue-50"
-                          >
-                            <Pencil className="h-4 w-4" />
-                            Edit
-                          </button>
+                     {role === "admin" && (
+  <td className="px-5 py-4 text-right">
+    <div className="inline-flex gap-2">
+      <button
+        onClick={() => openEdit(p)}
+        className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-xs font-semibold text-blue-700 hover:bg-blue-50"
+      >
+        <Pencil className="h-4 w-4" />
+        Edit
+      </button>
 
-                          <button
-                            onClick={() => onDelete(p._id)}
-                            disabled={busyId === p._id}
-                            className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-xs font-semibold text-red-700 hover:bg-red-50 disabled:opacity-60"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                            Delete
-                          </button>
-                        </div>
-                      </td>
+      <button
+        onClick={() => onDelete(p._id)}
+        disabled={busyId === p._id}
+        className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-xs font-semibold text-red-700 hover:bg-red-50 disabled:opacity-60"
+      >
+        <Trash2 className="h-4 w-4" />
+        Delete
+      </button>
+    </div>
+  </td>
+)}
                     </tr>
                   );
                 })}
