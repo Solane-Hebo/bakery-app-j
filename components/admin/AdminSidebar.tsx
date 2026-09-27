@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import {
   Home,
+  ArrowLeft,
   Wheat,
   NotebookPen,
   Factory,
@@ -174,6 +175,13 @@ export default function AdminSidebar({
             </>
           )}
         </nav>
+
+         <SidebarLink
+          href="/"
+          icon={<ArrowLeft size={18} />}
+          label="Back to Home"
+          onClick={onClose}
+         />
 
         {/* Logout */}
         <button

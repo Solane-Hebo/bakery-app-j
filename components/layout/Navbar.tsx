@@ -14,11 +14,35 @@ const navLinks = [
 
 export function Navbar() {
     const pathname = usePathname()
-    const [open, setOpen] = useState(false)
+
+   const [open, setOpen] = useState(false)
+   const [role, setRole] = useState<string | null>(null)
 
     useEffect(() => {
      setOpen(false)
     },[pathname])
+
+    useEffect(() => {
+        async function loadUser() {
+            try {
+            const res = await fetch("/api/profile/me", {
+                cache: "no-store",
+            })
+
+            if (!res.ok) {
+                setRole(null)
+                return
+            }
+
+            const data = await res.json()
+            setRole(data.role)
+            } catch {
+            setRole(null)
+            }
+        }
+
+        loadUser()
+ }, [])
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#978282] backdrop-blur">
@@ -45,14 +69,23 @@ export function Navbar() {
                 </Link>
             ))}
 
+            {role === "admin" || role === "staff" ? (
             <Link
-             href="/login"
-             className={`rounded-md px-3 py-2 text-sm font-bold text-white hover:bg-white/10 ${
-             pathname === '/login' ? 'bg-white/10' : ''
-            } `}
+                href="/admin"
+                className="rounded-md bg-white/10 px-3 py-2 text-sm font-bold text-white hover:bg-white/20"
+            >
+                Dashboard
+            </Link>
+            ) : (
+            <Link
+                href="/login"
+                className={`rounded-md px-3 py-2 text-sm font-bold text-white hover:bg-white/10 ${
+                pathname === "/login" ? "bg-white/10" : ""
+                }`}
             >
                 Login
             </Link>
+            )}
         </nav>
 
         {/* Mobile menu button */}
@@ -82,14 +115,23 @@ export function Navbar() {
                                 {l.label}
                             </Link>
                         ))}
-                        <Link 
+                       {role === "admin" || role === "staff" ? (
+                        <Link
+                            href="/admin"
+                            className="rounded-md px-3 py-2 text-sm font-semibold text-white hover:bg-white/10"
+                        >
+                            Dashboard
+                        </Link>
+                        ) : (
+                        <Link
                             href="/login"
                             className={`rounded-md px-3 py-2 text-sm font-semibold text-white hover:bg-white/10 ${
-                            pathname === '/login' ? 'bg-white/10' : ''
-                            } `}
+                            pathname === "/login" ? "bg-white/10" : ""
+                            }`}
                         >
                             Login
                         </Link>
+                        )}
                     </div>
                 </div>
             </div>

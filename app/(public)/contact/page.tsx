@@ -101,7 +101,7 @@ export default function ContactPage() {
                             href="tel:+46123456789"
                             className="hover:text-[#4a2c2a] transition underline-offset-4 hover:underline"
                             >
-                            +46 123 456 789
+                            +251952446464
                         </Link> } />
 
                     <InfoBox icon={<Mail size={18}/>} title="Email" content={
@@ -109,7 +109,7 @@ export default function ContactPage() {
                             href="mailto:info@bakery.com"
                             className="hover:text-[#4a2c2a] transition underline-offset-4 hover:underline"
                             >
-                            info@bakery.com
+                            jebelsani@gmail.com
                         </Link>
                      }/>
         
@@ -119,19 +119,19 @@ export default function ContactPage() {
                         target="_blank"
                         className="hover:text-[#4a2c2a] transition underline-offset-4 hover:underline"
                         >
-                        Chat with us
+                         +251952446464
                     </Link>
                 }/>
-                <InfoBox icon={<MapPin size={18}/>} title="Address" content="Main Street 10, Stockholm" />
+                <InfoBox icon={<MapPin size={18}/>} title="Address" content="Shashamane, Al-Iman Masgid" />
     
                 <div className="col-span-2">
                     <InfoBox icon={<Clock size={18}/>}
                         title="Opening Hours"
                         content={
                         <>
-                        Mon – Fri: 08:00 – 18:00 <br />
-                        Sat: 09:00 – 16:00 <br />
-                        Sun: Closed
+                        Mon – Fri: 12:00 – 04:00 <br />
+                        Sat: 12:00 – 04:00 <br />
+                        Sun: 12:00 – 04:00
                         </>
                     }
                     />
