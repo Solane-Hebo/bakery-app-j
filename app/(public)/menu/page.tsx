@@ -13,7 +13,7 @@ type Product = {
 
 async function getProducts(): Promise<Product[]> {
   const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL?.trim() ||
+    process.env.APP_URL?.trim() ||
     (process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
       : "http://localhost:3000")
