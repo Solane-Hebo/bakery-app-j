@@ -1,68 +1,23 @@
-type StatsResponse = {
-  status: string;
-  stats: {
-    todaysQuantity: number
-    todaysRevenue: number
-    totalProducts: number
-    lowStockCount: number
-  };
-  recentSales: Array<{
-    _id: string
-    productNameSnapshot: string
-    quantity: number
-    total: number
-    createdAt: string
-  }>
-}
-
-async function getStats(): Promise<StatsResponse | null> {
-  try {
-    const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL?.trim() ||
-      (process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : "http://localhost:3000")
-
-    const res = await fetch(`${baseUrl}/api/dashboard/stats`, {
-      cache: "no-store",
-    })
-
-    if (!res.ok) {
-      console.error("Dashboard stats failed:", res.status)
-      return null
-    }
-
-    const contentType = res.headers.get("content-type")
-
-    if (!contentType?.includes("application/json")) {
-      const text = await res.text()
-
-      console.error(
-        "Dashboard stats returned non-JSON:",
-        text.slice(0, 300)
-      )
-
-      return null
-    }
-
-    return await res.json()
-  } catch (error) {
-    console.error("Dashboard getStats error:", error)
-    return null
-  }
-}
+import { getDashboardStats } from "@/lib/dashboard";
 
 export default async function AdminDashboard() {
-  const data = await getStats()
+  let data = null;
+
+  try {
+    data = await getDashboardStats();
+  } catch (error) {
+    console.error("Failed to load dashboard:", error);
+  }
 
   const stats = data?.stats ?? {
     todaysQuantity: 0,
     todaysRevenue: 0,
     totalProducts: 0,
     lowStockCount: 0,
-  }
+  };
 
-  const recent = data?.recentSales ?? []
+  const recent = data?.recentSales ?? [];
+
 
   return (
     <div className="w-full min-w-0 max-w-full space-y-6 overflow-hidden">
