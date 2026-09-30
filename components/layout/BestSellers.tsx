@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import SmartImage from "@/components/ui/SmartImage";
 import OrderModal from "@/components/layout/OrderModal";
 
 type Product = {
@@ -65,12 +65,12 @@ export default function BestSellers() {
           {/* Image */}
           <div className="relative h-100 md:h-84 w-full">
             {product.imageUrl ? (
-              <Image
-                src={product.imageUrl}
-                alt={product.name}
-                fill
-                className="object-cover"
-              />
+             <SmartImage
+             src={product.imageUrl}
+             alt={product.name}
+             className="h-full w-full object-cover"
+             sizes="(max-width: 768px) 100vw, 25vw"
+/>
             ) : (
               <div className="flex h-full items-center justify-center bg-gray-200 text-gray-500">
                 No Image

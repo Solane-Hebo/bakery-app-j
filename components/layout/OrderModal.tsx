@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { X } from "lucide-react"
-import Image from "next/image"
+import SmartImage from "@/components/ui/SmartImage";
 import { Dispatch, SetStateAction } from "react"
 
 type Product = {
@@ -78,13 +78,12 @@ export default function OrderModal({
           <div className="grid gap-6 px-6 py-6 sm:grid-cols-[140px_1fr]">
             <div className="relative h-32 w-full overflow-hidden rounded-2xl bg-gray-100 ring-1 ring-black/5 sm:h-36">
               {product.imageUrl ? (
-                <Image
-                  src={product.imageUrl}
-                  alt={product.name}
-                  fill
-                  className="h-full w-full object-cover"
-                  sizes="140px"
-                />
+                <SmartImage
+                 src={product.imageUrl}
+                 alt={product.name}
+                 className="h-full w-full object-cover"
+                 sizes="140px"
+                 />
               ) : (
                 <div className="flex h-full w-full items-center justify-center text-xs font-semibold text-gray-500">
                   No image
