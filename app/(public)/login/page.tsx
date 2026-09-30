@@ -34,8 +34,22 @@ export default function LoginPage() {
         body: JSON.stringify(data),
       })
 
-    const result = await res.json()
+    const contentType = res.headers.get("content-type")
 
+if (!contentType?.includes("application/json")) {
+  const text = await res.text()
+  console.error("Login API returned non-JSON:", {
+    status: res.status,
+    url: res.url,
+    body: text.slice(0, 300),
+  })
+
+  setStatus("error")
+  setServerMessage("Server returned an unexpected response.")
+  return
+}
+
+const result = await res.json()
      if (!res.ok) {
         setStatus("error")
         setServerMessage(result.message || "Login failed. Try again.")

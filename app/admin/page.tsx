@@ -16,13 +16,40 @@ type StatsResponse = {
 }
 
 async function getStats(): Promise<StatsResponse | null> {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL?.trim() ||
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")
+  try {
+    const baseUrl =
+      process.env.NEXT_PUBLIC_BASE_URL?.trim() ||
+      (process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : "http://localhost:3000")
 
-  const res = await fetch(`${baseUrl}/api/dashboard/stats`, { cache: "no-store" })
-  if (!res.ok) return null
-  return res.json()
+    const res = await fetch(`${baseUrl}/api/dashboard/stats`, {
+      cache: "no-store",
+    })
+
+    if (!res.ok) {
+      console.error("Dashboard stats failed:", res.status)
+      return null
+    }
+
+    const contentType = res.headers.get("content-type")
+
+    if (!contentType?.includes("application/json")) {
+      const text = await res.text()
+
+      console.error(
+        "Dashboard stats returned non-JSON:",
+        text.slice(0, 300)
+      )
+
+      return null
+    }
+
+    return await res.json()
+  } catch (error) {
+    console.error("Dashboard getStats error:", error)
+    return null
+  }
 }
 
 export default async function AdminDashboard() {
